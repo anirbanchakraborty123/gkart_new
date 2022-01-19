@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from store.models import Product
+from api.store.models import Product
 import logging
 log= logging.getLogger('django')
 
