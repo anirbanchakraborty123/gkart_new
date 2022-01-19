@@ -45,8 +45,28 @@ INSTALLED_APPS = [
     'category',
     'accounts',
     'store',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'category.api',
+    'store.apis'
 
 ]
+
+REST_FRAMEWORK = {
+#           # Use Django's standard `django.contrib.auth` permissions,
+#           # or allow read-only access for unauthenticated users.
+#           'DEFAULT_PERMISSION_CLASSES': [
+#          'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#           ],
+
+           'DEFAULT_AUTHENTICATION_CLASSES': 
+           [
+               # 'rest_framework.authentication.BasicAuthentication',
+                # 'rest_framework.authentication.SessionAuthentication',
+                 'rest_framework.authentication.TokenAuthentication',  
+                 # MANUALLY ADDED BECAUSE WE ARE GOING TO USE CUSTOM LOGIN AUTHENTICATION NOT DJANGOS 
+           ] 
+         }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -176,7 +196,7 @@ LOGGING ={
     },
     'formatters':{
         'simpleRe': {
-            'format': '{levelname} {asctime} ( msg:  {message} )  {funcName} {pathname} {filename} ( in line no : {lineno})  ',
+            'format': '{levelname} {asctime} ( msg: [ {message} ])  {pathname} {filename} ( in line no:[{lineno}])  ',
             'style': '{',
         }
 

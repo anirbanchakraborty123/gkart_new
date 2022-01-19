@@ -22,7 +22,11 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('' , views.home, name='home'),
+    path('api-auth/', include('rest_framework.urls')),
     path('store/' ,include('store.urls'), name='store'),
+    path('category_api/' ,include('category.api.urls'), name='category_api'),
+    path('product_api/' ,include('store.apis.urls'), name='product_api'),
+
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
