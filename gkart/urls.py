@@ -25,4 +25,3 @@ urlpatterns = [
     path('store/' ,include('store.urls'), name='store'),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
