@@ -157,29 +157,29 @@ MEDIA_ROOT = (
 )
 
 
-LOGGING ={
-    'version':1,
-   # 'disable_existing_loggers': False,
-    'loggers':{
-        'django':{
-            'handlers':['file1'],
-            'level':'INFO'
-        }
-    },
-    'handlers':{
-        'file1':{
-            'level':'INFO',
-            'class': 'logging.FileHandler',
-            'filename':'./logs/info.log',
-            'formatter':'simpleRe',
-        },
+# LOGGING ={
+#     'version':1,
+#    # 'disable_existing_loggers': False,
+#     'loggers':{
+#         'django':{
+#             'handlers':['file1'],
+#             'level':'INFO'
+#         }
+#     },
+#     'handlers':{
+#         'file1':{
+#             'level':'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename':'./logs/info.log',
+#             'formatter':'simpleRe',
+#         },
         
-    },
-    'formatters':{
-        'simpleRe': {
-            'format': '{levelname} {asctime} ( msg:  {message} )  {funcName} {pathname} {filename} ( in line no : {lineno})  ',
-            'style': '{',
-        }
+#     },
+#     'formatters':{
+#         'simpleRe': {
+#             'format': '{levelname} {asctime} ( msg:  {message} )  {funcName} {pathname} {filename} ( in line no : {lineno})  ',
+#             'style': '{',
+#         }
 
-    }
-}
+#     }
+# }
