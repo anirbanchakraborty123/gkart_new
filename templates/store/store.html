@@ -29,17 +29,14 @@
                     <h6 class="title">Categories</h6>
                 </a>
             </header>
-            <div class="filter-content collapse show" id="collapse_1" style="">
+            <div class="filter-content collapse show" id="collapse_1" >
                 <div class="card-body">
                     
                     <ul class="list-menu">
-                    <li><a href="#">People  </a></li>
-                    <li><a href="#">Watches </a></li>
-                    <li><a href="#">Cinema  </a></li>
-                    <li><a href="#">Clothes  </a></li>
-                    <li><a href="#">Home items </a></li>
-                    <li><a href="#">Animals</a></li>
-                    <li><a href="#">People </a></li>
+                        <li><a href="/store">All Products</a></li>
+                        {% for cate in category %}
+                         <li><a href="{{cate.get_url}}">{{cate.category_name}}</a></li>
+                        {% endfor %}
                     </ul>
     
                 </div> <!-- card-body.// -->
@@ -52,7 +49,7 @@
                     <h6 class="title">Sizes </h6>
                 </a>
             </header>
-            <div class="filter-content collapse show" id="collapse_4" style="">
+            <div class="filter-content collapse show" id="collapse_4" >
                 <div class="card-body">
                   <label class="checkbox-btn">
                     <input type="checkbox">
@@ -84,7 +81,7 @@
                     <h6 class="title">Price range </h6>
                 </a>
             </header>
-            <div class="filter-content collapse show" id="collapse_3" style="">
+            <div class="filter-content collapse show" id="collapse_3" >
                 <div class="card-body">
                     
                     <div class="form-row">
@@ -143,15 +140,15 @@
                         <div class="d-flex justify-content-between align-items-center"> <span class="discount">-25%</span> <span class="wishlist"><i class="fa fa-heart-o"></i></span> </div>
                     </div>
                     {% if product.images %}
-                          <img src="{{ product.images.url}}">
+                          <a href="{{product.get_url}}"><img src="{{ product.images.url}}"></a>
                     {% else %}
-                          <img src="{% static 'images/banners/1.jpg' %}">
+                          <a href="{{product.get_url}}"><img src="{% static 'images/banners/1.jpg' %}"></a>
                     {% endif %}
                         
                 </div> <!-- img-wrap.// -->
                 <figcaption class="info-wrap">
                     <div class="fix-height">
-                        <a href="./product-detail.html" class="title">{{ product.product_name }}</a>
+                        <a href="{{product.get_url}}" class="title">{{ product.product_name }}</a>
                         <div class="price-wrap mt-2">
                             <span class="price">Rs. {{ product.price }}</span>
                             <del class="price-old">Rs. 1980</del>

@@ -9,8 +9,8 @@
 <section class="section-intro padding-y-sm">
 <div class="container">
 
-<div class="intro-banner-wrap">
-	<img src="{% static 'images/banners/1.jpg' %}" class="img-fluid rounded">
+<div class="intro-banner">
+	<img src="{% static 'images/banners/cover2.jpg' %}" class="img-fluid rounded" style="height: 500px; width: 100%" >
 </div>
 
 </div> <!-- container //  -->
@@ -22,7 +22,7 @@
 <div class="container">
 
 <header class="section-heading">
-	<a href="./store.html" class="btn btn-outline-primary float-right">See all</a>
+	<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
 	<h3 class="section-title">Popular products</h3>
 </header><!-- sect-heading -->
 
@@ -32,13 +32,13 @@
 	<div class="col-md-3">
 		<div class="card card-product-grid">
 			{% if product.images %} <!--To handle if any product has no images  -->
-			        <a href="./product-detail.html" class="img-wrap"> <img src="{{product.images.url }}"> </a>
+			        <a href="{{product.get_url}}" class="img-wrap"> <img src="{{product.images.url }}"> </a>
 			{% else %}
-			        <a href="./product-detail.html" class="img-wrap"> <img src="{% static 'images/banners/1.jpg' %}"> </a>
+			        <a href="{{product.get_url}}" class="img-wrap"> <img src="{% static 'images/banners/1.jpg' %}"> </a>
 			{% endif %}
 			
 			<figcaption class="info-wrap">
-				<a href="./product-detail.html" class="title">{{product.product_name}}</a>
+				<a href="{{product.get_url}}" class="title">{{product.product_name}}</a>
 				<div class="price mt-1">Rs {{product.price}}</div> <!-- price-wrap.// -->
 			</figcaption>
 		</div>

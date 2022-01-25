@@ -1,12 +1,13 @@
 from django.db import models
+from django.urls import reverse
 from api.category.models import Category
+
 
 
 # Create your models here.
 class Product(models.Model):
 
 
-    #pr_name      =       models.CharField(max_length=200,unique=True)
     product_name  =      models.CharField(max_length=50,unique=True)
     slug         =       models.SlugField(max_length=200,unique=True)
     description  =       models.TextField(max_length=200,blank=True)
@@ -29,3 +30,7 @@ class Product(models.Model):
     # def photo_url(self):
     #     if self.images and hasattr(self.images, 'url'):
     #         return self.images.url
+
+    # It returns the links/url of the product_details page for a particular product
+    def get_url(self):
+        return reverse('product_details', args=[self.category.category_slug,self.slug])
