@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY') 
+SECRET_KEY = config('SECRET_KEY', 'u4ez)-^+gimz=5r32p9gn-r0jm#n0tqy_$t*08jbm(tu-f(u^b') 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False, cast=bool) 
@@ -97,7 +97,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+<<<<<<< HEAD
                 'api.category.context_processors.all_category',
+=======
+                'category.context_processors.menu_links'
+>>>>>>> main
             ],
         },
     },
@@ -181,29 +185,38 @@ MEDIA_ROOT = (
 )
 
 
-LOGGING ={
-    'version':1,
-   # 'disable_existing_loggers': False,
-    'loggers':{
-        'django':{
-            'handlers':['file1'],
-            'level':'INFO'
-        }
-    },
-    'handlers':{
-        'file1':{
-            'level':'INFO',
-            'class': 'logging.FileHandler',
-            'filename':'./logs/info.log',
-            'formatter':'simpleRe',
-        },
+# LOGGING ={
+#     'version':1,
+#    # 'disable_existing_loggers': False,
+#     'loggers':{
+#         'django':{
+#             'handlers':['file1'],
+#             'level':'INFO'
+#         }
+#     },
+#     'handlers':{
+#         'file1':{
+#             'level':'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename':'./logs/info.log',
+#             'formatter':'simpleRe',
+#         },
         
+<<<<<<< HEAD
     },
     'formatters':{
         'simpleRe': {
             'format': '{levelname} {asctime} ( msg: [ {message} ])  {pathname} {filename} ( in line no:[{lineno}])  ',
             'style': '{',
         }
+=======
+#     },
+#     'formatters':{
+#         'simpleRe': {
+#             'format': '{levelname} {asctime} ( msg:  {message} )  {funcName} {pathname} {filename} ( in line no : {lineno})  ',
+#             'style': '{',
+#         }
+>>>>>>> main
 
-    }
-}
+#     }
+# }

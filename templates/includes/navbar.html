@@ -40,13 +40,23 @@
 				<i class="fa fa-bars"></i> All category 
 			</button>
 			<div class="dropdown-menu">
+<<<<<<< HEAD
                 {% for cate in category %}
 				   <a class="dropdown-item" href="{{cate.get_url}}">{{cate.category_name}}</a>
+=======
+
+				{% for category in links %}
+				   <a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name}}</a>
+>>>>>>> main
 				{% endfor %}
 			</div>
 		</div>  <!-- category-wrap.// -->
 	</div> <!-- col.// -->
+<<<<<<< HEAD
 	<a href="{% url 'store' %}" class="btn btn-outline-primary">Store</a>
+=======
+	<a href="/store/" class="btn btn-outline-primary">Store</a>
+>>>>>>> main
 	<div class="col-lg  col-md-6 col-sm-12 col">
 		<form action="#" class="search">
 			<div class="input-group w-100">

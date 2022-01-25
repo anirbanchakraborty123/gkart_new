@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 # Create your models here.
 class Category(models.Model):
@@ -36,4 +37,9 @@ class Category(models.Model):
         verbose_name = 'Category' #for specifying whhich model name
         verbose_name_plural = 'Categories' # setting plural form of model name to show in admin
 
+<<<<<<< HEAD:api/category/models.py
   
+=======
+    def get_url(self):
+        return reverse('products_by_category', args=[self.slug])
+>>>>>>> main:category/models.py
