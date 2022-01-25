@@ -1,13 +1,8 @@
 from django.shortcuts import render
-<<<<<<< HEAD
 from api.store.models import Product
-import logging
-log= logging.getLogger('django')
-=======
-from store.models import Product
 # import logging
 # log= logging.getLogger('django')
->>>>>>> main
+
 
 
 def home(request):
