@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ main,dev,gkart_api2 ]
+    branches: [ main]
   pull_request:
-    branches: [ main,dev,gkart_api2 ]
+    branches: [ main]
 
 jobs:
   build:
