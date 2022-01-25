@@ -42,11 +42,35 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'category',
-    'accounts',
-    'store',
+    'api.category',
+    'api.accounts',
+    'api.store',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'api.category.c_api',
+    'api.store.s_api',
+    'api.accounts.auth_api',
+    'api',
 
 ]
+
+REST_FRAMEWORK = {
+#           # Use Django's standard `django.contrib.auth` permissions,
+#           # or allow read-only access for unauthenticated users.
+           'DEFAULT_PERMISSION_CLASSES': [
+                #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+                      #  'rest_framework.permissions.IsAuthenticated',
+
+           ],
+
+           'DEFAULT_AUTHENTICATION_CLASSES': 
+           [
+                 'rest_framework.authentication.BasicAuthentication',
+                 'rest_framework.authentication.SessionAuthentication',
+                 'rest_framework.authentication.TokenAuthentication',  
+                 # MANUALLY ADDED BECAUSE WE ARE GOING TO USE CUSTOM LOGIN AUTHENTICATION NOT DJANGOS 
+           ] 
+         }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,7 +97,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+<<<<<<< HEAD
+                'api.category.context_processors.all_category',
+=======
                 'category.context_processors.menu_links'
+>>>>>>> main
             ],
         },
     },
@@ -174,12 +202,21 @@ MEDIA_ROOT = (
 #             'formatter':'simpleRe',
 #         },
         
+<<<<<<< HEAD
+    },
+    'formatters':{
+        'simpleRe': {
+            'format': '{levelname} {asctime} ( msg: [ {message} ])  {pathname} {filename} ( in line no:[{lineno}])  ',
+            'style': '{',
+        }
+=======
 #     },
 #     'formatters':{
 #         'simpleRe': {
 #             'format': '{levelname} {asctime} ( msg:  {message} )  {funcName} {pathname} {filename} ( in line no : {lineno})  ',
 #             'style': '{',
 #         }
+>>>>>>> main
 
 #     }
 # }
