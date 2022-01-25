@@ -1,5 +1,5 @@
 # for ignoring a folder 'foldername/'
-greatkart_template/ 
+greatkart/ 
 logs/
 .env
 
