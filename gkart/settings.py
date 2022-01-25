@@ -97,11 +97,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-<<<<<<< HEAD
-                'api.category.context_processors.all_category',
-=======
-                'category.context_processors.menu_links'
->>>>>>> main
+                'api.category.context_processors.all_category'
             ],
         },
     },
@@ -183,40 +179,3 @@ import os
 MEDIA_ROOT = (
     os.path.join(BASE_DIR, 'media')
 )
-
-
-# LOGGING ={
-#     'version':1,
-#    # 'disable_existing_loggers': False,
-#     'loggers':{
-#         'django':{
-#             'handlers':['file1'],
-#             'level':'INFO'
-#         }
-#     },
-#     'handlers':{
-#         'file1':{
-#             'level':'INFO',
-#             'class': 'logging.FileHandler',
-#             'filename':'./logs/info.log',
-#             'formatter':'simpleRe',
-#         },
-        
-<<<<<<< HEAD
-    },
-    'formatters':{
-        'simpleRe': {
-            'format': '{levelname} {asctime} ( msg: [ {message} ])  {pathname} {filename} ( in line no:[{lineno}])  ',
-            'style': '{',
-        }
-=======
-#     },
-#     'formatters':{
-#         'simpleRe': {
-#             'format': '{levelname} {asctime} ( msg:  {message} )  {funcName} {pathname} {filename} ( in line no : {lineno})  ',
-#             'style': '{',
-#         }
->>>>>>> main
-
-#     }
-# }

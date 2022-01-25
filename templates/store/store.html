@@ -31,19 +31,14 @@
             </header>
             <div class="filter-content collapse show" id="collapse_1" >
                 <div class="card-body">
-                    {% for category in links%}
+                   
                     <ul class="list-menu">
-<<<<<<< HEAD
                         <li><a href="/store">All Products</a></li>
                         {% for cate in category %}
                          <li><a href="{{cate.get_url}}">{{cate.category_name}}</a></li>
                         {% endfor %}
-=======
-                    <li><a href="{{ category.get_url}}"> {{ category.category_name}}</a></li>
-                    
->>>>>>> main
                     </ul>
-                    {% endfor %}
+                 
                 </div> <!-- card-body.// -->
             </div>
         </article> <!-- filter-group  .// -->
