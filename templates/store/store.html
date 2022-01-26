@@ -154,7 +154,11 @@
                             <del class="price-old">Rs. 1980</del>
                         </div> <!-- price-wrap.// -->
                     </div>
-                    <a href="#" class="btn btn-block btn-success">Add to cart </a>
+                    {% if product.stock > 1 and product.is_available and product.is_active%}
+                        <a href="#" class="btn btn-block btn-success">Add to cart </a>
+                    {% else %}
+                        <a href="#" class="btn btn-block btn-warning">Out of stock </a>
+                    {% endif %}
                 </figcaption>
             </figure>
         </div> <!-- col.// -->
