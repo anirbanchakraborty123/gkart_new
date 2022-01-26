@@ -1,8 +1,8 @@
-name: Django CI
+name: Gkart CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main,gkart_api2 ]
   pull_request:
     branches: [ main ]
 

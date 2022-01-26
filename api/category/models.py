@@ -38,5 +38,4 @@ class Category(models.Model):
         verbose_name_plural = 'Categories' # setting plural form of model name to show in admin
 
   
-    def get_url(self):
-        return reverse('products_by_category', args=[self.category_slug])
+    
