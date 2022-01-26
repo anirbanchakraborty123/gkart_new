@@ -1,4 +1,3 @@
-from unicodedata import numeric
 from rest_framework import serializers
 from ..models import Account
 

@@ -2,9 +2,9 @@ from django.test import TestCase
 from api.category.models import Category
 
 
-class ViewsTestCase(TestCase):
-    def test_index_loads_properly(self):
-        response = self.client.get('/api/')
+class APITestCase(TestCase):
+    def test_auth_api(self):
+        response = self.client.get('/api/auth_api/')
         self.assertEqual(response.status_code, 200)
 
 
