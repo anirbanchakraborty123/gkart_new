@@ -41,7 +41,7 @@ jobs:
         DEBUG: True   
         
     - name: Runserver
-      run: python manage.py runserver 
+      run: python manage.py runserver &
       env:
         # Random key
         DEBUG: True 
