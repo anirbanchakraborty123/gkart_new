@@ -5,7 +5,7 @@
 {% block content %}
   
 <!-- ========================= SECTION PAGETOP ========================= -->
-<section class="section-pagetop bg">
+<section class="section-pagetop bg" style="background-color: rgb(152, 207, 238);">
 <div class="container">
 	<h2 class="title-page">Our Store</h2>
 	
@@ -15,7 +15,7 @@
 <!-- ========================= SECTION INTRO END// ========================= -->
 
 <!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-content padding-y">
+<section class="section-content padding-y" style="background-image: url('{% static "images/4.jpg" %}') ;">
     <div class="container">
     
     <div class="row">
@@ -119,11 +119,11 @@
     </div> <!-- card.// -->
     
         </aside> <!-- col.// -->
-        <main class="col-md-9">
+        <main class="col-md-8">
     
-    <header class="border-bottom mb-4 pb-3">
+    <header class="border-bottom mb-0 pb-0">
             <div class="form-inline">
-                <span class="mr-md-auto"><b>{{ p_count }}</b> Items found </span>
+                <span class="mr-md-auto"><b>{{p_count}}</b> Items found </span>
                 
             </div>
     </header><!-- sect-heading -->

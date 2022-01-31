@@ -7,6 +7,7 @@ def store(request, category_slug= None):
       categories = None
       products= None
 
+
       if category_slug != None:
             categories= get_object_or_404(Category, category_slug=category_slug)
             products= Product.objects.filter(category=categories,is_available= True)
@@ -15,13 +16,13 @@ def store(request, category_slug= None):
             products  = Product.objects.all().filter(is_available=True)
             products_count= products.count() #for geting all total no of products
 
-      #products_count= Product.objects.all().filter(is_available=True).count()
-      #OR products_count= products.count()
+      
 
-
+      search = request.GET.get('search')
       context={
                'products': products,
                'p_count' : products_count,
+               #'search'  : search
                            }
       return render(request, 'store/store.html', context)
 

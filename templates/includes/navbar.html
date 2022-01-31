@@ -3,7 +3,7 @@
 <!--===================== HEADER STARTS FROM HERE=========================== .// -->
 
 <header class="section-header">
-<nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
+<nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom" style="background-color: rgba(35, 203, 233, 0.925);">
 <div class="container">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -51,12 +51,13 @@
 	<a href="{% url 'store' %}" class="btn btn-outline-primary">Store</a>
 
 	<div class="col-lg  col-md-6 col-sm-12 col">
-		<form action="#" class="search">
+		<form  class="search" method='post' action="{% url 'search_store' %}">
+			 {% csrf_token %}
 			<div class="input-group w-100">
-			    <input type="text" class="form-control" style="width:60%;" placeholder="Search">
+			    <input type="text" class="form-control" style="width:60%;" name= "search" placeholder="Search" value="{{search}}">
 			    
 			    <div class="input-group-append">
-			      <button class="btn btn-primary" type="submit">
+			     <button class="btn btn-primary" type="submit">
 			        <i class="fa fa-search"></i>
 			      </button>
 			    </div>
@@ -72,7 +73,7 @@
 							<a href="./register.html"> Register</a>
 						</div>
 					</div>
-					<a href="./cart.html" class="widget-header pl-3 ml-3">
+					<a href="cart/" class="widget-header pl-3 ml-3">
 						<div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
 						<span class="badge badge-pill badge-danger notify">0</span>
 					</a>
