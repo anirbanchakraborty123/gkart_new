@@ -4,11 +4,17 @@
 
 {% block content %}
 
-<section class="section-content padding-y bg">
+<section id="main" class="section-content padding-y bg">
 <div class="container">
 
 <!-- ============================ COMPONENT 1 ================================= -->
-
+{% if not cart_ps %}
+	<h2 class="text-center">Your Shopping Cart is Empty</h2>
+	<br>
+	<div class="text-center">
+		<a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping</a>
+	</div>
+{% else %}
 <div class="row">
 	<aside class="col-lg-9">
 <div class="card">
@@ -22,75 +28,51 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-	<td>
-		<figure class="itemside align-items-center">
-			<div class="aside"><img src="{% static 'images/items/11.jpg' %}" class="img-sm"></div>
-			<figcaption class="info">
-				<a href="#" class="title text-dark">Camera Canon EOS M50 Kit</a>
-				<p class="text-muted small">Matrix: 25 Mpx <br> Brand: Canon</p>
-			</figcaption>
-		</figure>
-	</td>
-	<td> 
-		<!-- col.// -->
-					<div class="col"> 
-						<div class="input-group input-spinner">
-							<div class="input-group-prepend">
-							<button class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </button>
-							</div>
-							<input type="text" class="form-control"  value="1">
-							<div class="input-group-append">
-							<button class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </button>
-							</div>
-						</div> <!-- input-group.// -->
-					</div> <!-- col.// -->
-	</td>
-	<td> 
-		<div class="price-wrap"> 
-			<var class="price">$1156.00</var> 
-			<small class="text-muted"> $315.20 each </small> 
-		</div> <!-- price-wrap .// -->
-	</td>
-	<td class="text-right"> 
-	<a href="" class="btn btn-danger"> Remove</a>
-	</td>
-</tr>
-<tr>
-	<td>
-		<figure class="itemside align-items-center">
-			<div class="aside"><img src="{% static 'images/items/10.jpg' %}" class="img-sm"></div>
-			<figcaption class="info">
-				<a href="#" class="title text-dark">ADATA Premier ONE microSDXC</a>
-				<p class="text-muted small">Size: 256 GB  <br> Brand: ADATA </p>
-			</figcaption>
-		</figure>
-	</td>
-	<td> 
-		<!-- col.// -->
-					<div class="col"> 
-						<div class="input-group input-spinner">
-							<div class="input-group-prepend">
-							<button class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </button>
-							</div>
-							<input type="text" class="form-control"  value="1">
-							<div class="input-group-append">
-							<button class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </button>
-							</div>
-						</div> <!-- input-group.// -->
-					</div> <!-- col.// -->
-	</td>
-	<td> 
-		<div class="price-wrap"> 
-			<var class="price">$149.97</var> 
-			<small  class="text-muted"> $75.00 each </small>  
-		</div> <!-- price-wrap .// -->
-	</td>
-	<td class="text-right"> 
-	<a href="" class="btn btn-danger"> Remove</a>
-	</td>
-</tr>
 
+{%  for product in cart_ps %}
+<tr>
+	<td>
+		<figure class="itemside align-items-center">
+			{% if product.product.images %}
+                        <div class="aside"><a href="{{product.product.get_url}}"><img src="{{ product.product.images.url}} " class="img-sm"></a></div>  
+			            <!-- <a href="{{product.product.get_url}}"><img src="{{ product.product.images.url}} "></a> -->
+            {% else %}
+			            <div class="aside"><a href="{{product.product.get_url}}"><img src="{% static 'images/banners/1.jpg' %}" class="img-sm"></a></div>  
+                        <!-- <a href="{{prouct.product.get_url}}"><img src="{% static 'images/banners/1.jpg' %}"></a> -->
+            {% endif %}
+                        
+			<!-- <div class="aside"><img src="{% static 'images/items/11.jpg' %}" class="img-sm"></div> -->
+			<figcaption class="info">
+				<a href="{{product.product.get_url}}" class="title text-dark">{{product.product.product_name}}</a>
+				<p class="text-muted small">Color: Blue <br> Size: XXL</p>
+			</figcaption>
+		</figure>
+	</td>
+	<td> 
+		<!-- col.// -->
+			<div class="col"> 
+				<div class="input-group input-spinner">
+					<div class="input-group-prepend">
+					<button class="btn btn-light"   type="button" id="button-minus{{product.product.id}}"> <i class="fa fa-minus"></i> </button>
+					</div>
+					<input type="text" id="quantity{{product.product.id}}" class="form-control" name="quantity" value="{{product.quantity}}">
+					<div class="input-group-append">
+					<button class="btn btn-light"  type="button" id="button-plus{{product.product.id}}"> <i class="fa fa-plus"></i> </button>
+					</div>
+				</div> <!-- input-group.// -->
+			</div> <!-- col.// -->
+	</td>
+	<td> 
+		<div class="price-wrap"> 
+			<var class="price">Rs {{ product.sub_total }}</var> 
+			<small class="text-muted"> Rs {{product.product.price}} each </small> 
+		</div> <!-- price-wrap .// -->
+	</td>
+	<td class="text-right"> 
+	<button id="remove_item{{product.product.id}}" onclick="return confirm('Are you sure you want to delete this item?')" type="button" class="btn btn-danger remove"> Remove</button>
+	</td>
+</tr>
+{% endfor %}
 </tbody>
 </table>
 </div> <!-- card.// -->
@@ -98,36 +80,215 @@
 	</aside> <!-- col.// -->
 	<aside class="col-lg-3">
 
-		<div class="card">
-		<div class="card-body">
+	    <div class="card">
+		    <div class="card-body">
 			<dl class="dlist-align">
 			  <dt>Total price:</dt>
-			  <dd class="text-right">$69.97</dd>
+			  <dd class="text-right">Rs {{cart_total}}</dd>
 			</dl>
 			<dl class="dlist-align">
-			  <dt>Tax:</dt>
-			  <dd class="text-right"> $10.00</dd>
+			  <dt>Tax:<small class="text-muted"> 2% tax on total </small></dt>
+			  <dd class="text-right"> Rs {{cart_tax}}</dd>
+			
+			  
 			</dl>
+			<hr>
 			<dl class="dlist-align">
-			  <dt>Total:</dt>
-			  <dd class="text-right text-dark b"><strong>$59.97</strong></dd>
+			  <dt>Grand Total:</dt>
+			  <dd class="text-right text-dark b"><strong>Rs {{ grand_total }}</strong></dd>
 			</dl>
 			<hr>
 			<p class="text-center mb-3">
 				<img src="{% static 'images/misc/payments.png' %}" height="26">
 			</p>
 			<a href="./place-order.html" class="btn btn-primary btn-block"> Checkout </a>
-			<a href="./store.html" class="btn btn-light btn-block">Continue Shopping</a>
-		</div> <!-- card-body.// -->
-		</div> <!-- card.// -->
+			<a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+		    </div> <!-- card-body.// -->
+	    </div> <!-- card.// -->
 
 </aside> <!-- col.// -->
 
 
 </div> <!-- row.// -->
+{% endif %}
 <!-- ============================ COMPONENT 1 END .// ================================= -->
 
 </div> <!-- container .//  -->
 </section>
+<script>
 
-{% endblock %}
+	$(document).ready(function(){ 	
+
+		$.ajax({ // THIS AJAX CALL IS USED TO GET THE PRODUCT_ID OF CART_PRODUCTS
+				url:"{% url 'cart_details' %}", 
+				dataType: "json",			
+				beforeSend: function(){ // JUST FOR TESTING
+					// Code to run before this ajax call
+					console.log("before Fetching cart_details");
+				},
+				success: function( data ) {
+					// setTimeout(function(){
+						
+					console.log( data );    
+					for (let i = 0; i < data.length; i++) {
+						
+						$("#button-plus"+data[i]).click(function () {
+
+							var username = $("#quantity"+data[i]).val()
+							if(username<10){	  	  
+									username++					
+									// For assigning the value using 'id'
+									document.getElementById('quantity'+data[i]).value = username; 
+									console.log(username)
+									
+									$.ajax( {
+										url: "{% url 'update_cart' %}",
+										dataType: "json",
+										data: {
+										quantity1   : username,
+										product    : data[i],
+										},
+										beforeSend: function(){
+											// Code to run before ajax call
+											console.log("BEFORE SEND");
+											console.log(data[i]);
+                                            // $(".loader").show(1000);
+										},
+										complete: function(){
+											// Code to run before ajax call
+											console.log("completed++");
+											setTimeout(function(){
+
+                                               window.location.reload()
+											   
+                                            },1000);
+										    //toastr.success('Are you the 6 fingered man?')
+											toastr.options.preventDuplicates = true;  
+											toastr.options.closeButton= true;  
+											toastr.success('Added to cart', '', {positionClass: "toast-bottom-center"})											
+											
+											// toastr.options = {
+											
+											// 		"closeButton": true,
+											// 		"debug": false,
+											// 		"newestOnTop": false,
+											// 		"progressBar": false,
+											// 		"positionClass": "toast-bottom-center",
+											// 		"preventDuplicates": false,
+											// 		"onclick": null,
+											// 		"showDuration": "3000",
+											// 		"hideDuration": "1000",
+											// 		"timeOut": "5000",
+											// 		"extendedTimeOut": "1000",
+											// 		"showEasing": "swing",
+											// 		"hideEasing": "linear",
+											// 		"showMethod": "fadeIn",
+											// 		"hideMethod": "fadeOut"
+											// 		}
+										},
+										success: function( data ) {
+											console.log("done+")
+
+										},
+										error:function(e){
+											//toastr.error('Are you the 6 fingered man?')
+
+										}
+								});
+								}
+								else{
+									toastr.options.preventDuplicates = true;    
+
+									toastr.warning('Cannot Add More then 10', '', {positionClass: "toast-bottom-center"})											
+								}		
+									
+									
+								}); // END OF BUTTTON-PLUS +
+
+
+						$("#button-minus"+data[i]).click(function () {
+								var username = $("#quantity"+data[i]).val()
+								if(username>1 ){	  
+									username--
+										document.getElementById('quantity'+data[i]).value = username;
+										console.log(username)	
+										
+									$.ajax( {
+											url: "{% url 'update_cart' %}",
+											dataType: "json",
+											data: {
+											quantity1   : username,
+											product    : data[i]
+											},
+											beforeSend: function(){
+												// Code to run before ajax call
+												console.log("BEFORE SEND");
+											},
+											complete: function(){
+													// Code to run before ajax call
+													console.log("completed--");
+													setTimeout(function(){
+														window.location.reload()
+													},1000);
+														//toastr.success('Are you the 6 fingered man?')
+													toastr.options.preventDuplicates = true;  
+													toastr.options.closeButton= true;  
+													toastr.success('Deleted from cart', '', {positionClass: "toast-bottom-center"})											
+													
+												
+												},
+											success: function( data ) {
+												console.log("done-")
+												
+											} // end of success
+										}); 
+										}
+								else{
+									toastr.options.preventDuplicates = true;    
+                                    toastr.warning('Minimum 1 should be added', '', {positionClass: "toast-bottom-center"})								}
+								// end of ajax call for update_cart
+						}); // end of button-minus
+
+					$("#remove_item"+data[i]).click(function () {
+
+						//var remove = $('remove_item'+data[i]).val()
+						$.ajax( {
+									url: "{% url 'update_cart' %}",
+									dataType: "json",
+									data: {
+										remove : data[i]
+									},
+									beforeSend: function(){
+										// Code to run before ajax call
+										console.log("BEFORE Sene remove");
+									},
+									complete: function(){
+											// Code to run before ajax call
+											console.log("removed"+data[i]);
+											setTimeout(function(){
+												window.location.reload()
+											},1000);
+												//toastr.success('Are you the 6 fingered man?')
+											$(document).ready(function() {
+												toastr.success('        Deleted from cart   ', '', {positionClass: "toast-bottom-center"})											
+
+										    });
+										},
+									success: function( data ) {
+										console.log("removed sucessfully")
+										//window.location.reload()
+										//location.reload(true);
+
+									} // end of success
+								}); // end of ajax call for update_cart
+
+					});
+				}  //end of for loop                        
+					// },2000); // END OF TIMEOUT
+				} // end of success
+			}); // end of ajax call for cart_details
+		
+	}); // end of document.ready
+</script>
+
+{% endblock content %}

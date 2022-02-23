@@ -3,7 +3,7 @@
 // jquery ready start
 $(document).ready(function() {
 	// jQuery code
-
+    console.log("inside js")
 
     /* ///////////////////////////////////////
 
@@ -15,7 +15,9 @@ $(document).ready(function() {
 
 	//////////////////////// Prevent closing from click inside dropdown
     $(document).on('click', '.dropdown-menu', function (e) {
-      e.stopPropagation();
+        console.log("inside js22")
+        e.stopPropagation();
+
     });
 
 

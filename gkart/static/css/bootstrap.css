@@ -2359,7 +2359,7 @@ textarea.form-control {
   padding: 0.45rem 0.85rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.37rem;
+  border-radius: 40px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2440,8 +2440,8 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #00b517;
-  border-color: #00b517;
+  background-color: #9446ec;
+  border-color: #9446ec;
 }
 .btn-success:hover {
   color: #fff;
@@ -2978,14 +2978,14 @@ fieldset:disabled a.btn {
   padding: 0.6rem 1rem;
   font-size: 1.2rem;
   line-height: 1.5;
-  border-radius: 0.45rem;
+  border-radius: 35px;
 }
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.35rem 0.5rem;
   font-size: 0.82rem;
   line-height: 1.2;
-  border-radius: 0.37rem;
+  border-radius: 35px;
 }
 
 .btn-block {

@@ -6,7 +6,7 @@ from .models import Product
 
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
-        list_display = ('product_name','category' ,'is_active', 'created_date','price','is_available')
+        list_display = ('id','product_name','category' ,'is_active', 'created_date','price','is_available')
         list_filter=('product_name', 'category','is_active','is_available','created_date','price')
         search_fields = ['product_name']   # Toshow search bar in admn page above to search selected/mentioned fields
         prepopulated_fields={'slug': ('product_name',)}

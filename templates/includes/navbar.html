@@ -51,10 +51,10 @@
 	<a href="{% url 'store' %}" class="btn btn-outline-primary">Store</a>
 
 	<div class="col-lg  col-md-6 col-sm-12 col">
-		<form  class="search" method='post' action="{% url 'search_store' %}">
-			 {% csrf_token %}
+		<form  class="search"  method='get' action="{% url 'search_stores' %}" id="search_form" url_ref_for_autocomplete="{% url 'autocomplete' %}">
+			 <!-- {% csrf_token %} -->
 			<div class="input-group w-100">
-			    <input type="text" class="form-control" style="width:60%;" name= "search" placeholder="Search" value="{{search}}">
+			    <input type="text" class="form-control" id="id-search" style="width:60%;" name= "id-search" placeholder="Search" value="{{search}}">
 			    
 			    <div class="input-group-append">
 			     <button class="btn btn-primary" type="submit">
@@ -69,13 +69,13 @@
 					<div class="widget-header">
 						<small class="title text-muted">Welcome guest!</small>
 						<div> 
-							<a href="./signin.html">Sign in</a> <span class="dark-transp"> | </span>
-							<a href="./register.html"> Register</a>
+							<a href="{% url 'login' %}">Sign in</a> <span class="dark-transp"> | </span>
+							<a href="{% url 'register' %}"> Register</a>
 						</div>
 					</div>
-					<a href="cart/" class="widget-header pl-3 ml-3">
+					<a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
 						<div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-						<span class="badge badge-pill badge-danger notify">0</span>
+						<span id="cart_total" class="badge badge-pill badge-danger notify">{{cart|length}}</span>
 					</a>
 				</div> <!-- widgets-wrap.// -->
 			</div> <!-- col.// -->
@@ -87,3 +87,41 @@
 
 
 </header> <!-- section-header.// -->
+<script>
+// 	$(document).on('click', '.dropdown-menu', function (e) {
+//       e.stopPropagation();
+//     });
+// 	console.log("hello g")
+	
+// $(document).ready(function(){ 
+// 	$("#id-search").change(function () {
+//       var username = $(this).val();
+// 	  console.log(username)
+// 	});			
+// 	var search = $('#id-search').val()
+// 	var data = {
+//         search: search
+//     };
+// 	console.log(data)
+
+//         $( "#id-search" ).autocomplete({
+//             source: function( request, response ) {
+// 				var search = $('#id-search').val()
+// 				console.log(search)
+//             $.ajax( {
+//                 url: "{% url 'autocomplete' %}",
+//                 dataType: "json",
+//                 data: {
+//                 search1: search
+//                 },
+//                 success: function( data ) {
+//                 console.log( data );
+//                 }
+//             } );
+//             },
+//             minLength: 1,
+            
+//         } );
+
+// });
+</script>

@@ -127,9 +127,9 @@
                 
             </div>
     </header><!-- sect-heading -->
-    
+    <br>
     <div class="row">
-
+        {% if products %}
         {% for product in products %}
         
         <div class="col-md-4">
@@ -137,7 +137,7 @@
                 
                 <div class="img-wrap"> 
                     <div class="first">
-                        <div class="d-flex justify-content-between align-items-center"> <span class="discount">-25%</span> <span class="wishlist"><i class="fa fa-heart-o"></i></span> </div>
+                        <div class="d-flex justify-content-between align-items-center"> <span class="discount">-25%</span> <span id = "heart" pid="{{product.id}}" class="wishlist"><a href="#" id="click-heart" ><i class="fa fa-heart" style="color : red"></i></a></span> </div>
                     </div>
                     {% if product.images %}
                           <a href="{{product.get_url}}"><img src="{{ product.images.url}}"></a>
@@ -154,26 +154,59 @@
                             <del class="price-old">Rs. 1980</del>
                         </div> <!-- price-wrap.// -->
                     </div>
-                    {% if product.stock > 1 and product.is_available and product.is_active%}
-                        <a href="#" class="btn btn-block btn-success">Add to cart </a>
+                    {% if product.stock > 1 and product.is_available and product.is_active %}
+                    <!-- <p>{{cart}}</p> -->
+                       {% if product.id in cart %}
+                               <a href="{% url 'cart' %}" class="btn btn-block btn-success">Added to cart </a>
+
+                       {% else%}
+                              
+                               <a href="{{product.cart_get_url}}" class="btn btn-block btn-success">Add to cart </a>
+                       {% endif %}
                     {% else %}
-                        <a href="#" class="btn btn-block btn-warning">Out of stock </a>
+                       
+                         <a  class="btn btn-block btn-warning"  >Out of stock </a>
+                    
                     {% endif %}
                 </figcaption>
             </figure>
         </div> <!-- col.// -->
-     {% endfor %}
+        {% endfor %}
+        {% else %}
+        <div>
+            <br>
+            <h2>No result found.  Please try again.</h2>
+        </div>
+        {% endif %}
+        
     </div> <!-- row end.// -->
     
     
     <nav class="mt-4" aria-label="Page navigation sample">
-      <ul class="pagination">
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
+        {% if products.has_other_pages %}
+            <ul class="pagination">
+                    {% if products.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    {% endif %}
+
+                    {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                            <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if products.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    {% endif %}
+            </ul>
+
+        {% endif %}
     </nav>
     
         </main> <!-- col.// -->
@@ -184,5 +217,53 @@
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
     
+    <script>
+    
+        $(document).ready(function(){
+
+            // var pid= $("#heart").attr("pid");
+            // console.log(pid)
+            $('#click-heart').click(function(){
+                 console.log('clickedd')
+                // $('#display_advance').toggle('1000');
+                $("i", this).toggleClass("fa fa-heart-o  fa fa-heart");
+
+            })
+
+            var data={
+                price : '9000',
+            }
+
+            var num = 1
+
+            var token = '{{ csrf_token }}';
+
+            $.ajax( {
+                headers: { "X-CSRFToken": token },
+                url: 'http://127.0.0.1:8000/api/product/'+num+'/',
+                dataType: "json",
+                type: 'PATCH',
+                data : JSON.stringify(data),
+                contentType : 'application/json',
+                processData: false,
+                beforeSend: function(){
+                    // Code to run before ajax call
+                    console.log("BEFORE SEND");
+                    
+                    // $(".loader").show(1000);
+                },
+                complete: function(){
+                    // Code to run before ajax call
+                    console.log("completed++");
+                },
+                success: function(data){
+
+                    // console.log(data)
+                }
+                
+                });
+        });
+        
+    </script
 
 {% endblock content %}
