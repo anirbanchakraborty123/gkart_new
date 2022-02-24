@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<section class="section-content padding-y bg">
+<section class="section-content padding-y bg" style="background-image: url('{% static "images/4.jpg" %}') ;">
 <div class="container">
 
 <!-- ============================ COMPONENT 1 ================================= -->
@@ -74,11 +74,18 @@
 		</div>
 	</div> <!-- row.// -->
 	<hr>
+
 	{% if single_product.stock > 1 and single_product.is_available and single_product.is_active%}
-	<a href="#" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
-    {% else %}
-	<a href="" class="btn  btn-danger sml"> <span class="text">Out of stock</span> <i class="fas fa-shopping-cart"></i>  </a>
+	    {% if in_cart %}  <!-- to check if item in cart -->
+	       <a  class="btn  btn-success"> <span class="text">Added to cart</span> <i class="fas fa-check"></i>  </a>
+		   <a href="{% url 'cart' %}" class="btn btn-outline-primary"> <span class="text">View cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+		{% else %}
+		   <a href="{% url 'add_to_cart' single_product.id%}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+	    {% endif %}
+	{% else %}
+	      <a href="" class="btn  btn-danger sml"> <span class="text">Out of stock</span> <i class="fas fa-shopping-cart"></i>  </a>
 	{% endif %}
+
 </article> <!-- product-info-aside .// -->
 		</main> <!-- col.// -->
 	</div> <!-- row.// -->

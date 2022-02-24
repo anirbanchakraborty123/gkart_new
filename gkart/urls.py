@@ -19,14 +19,26 @@ from django.conf.urls.static import static
 from django.conf import settings
 from . import views
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('api.accounts.urls'), name='accounts'),
     path('' , views.home, name='home'),
+    path('search/' ,views.search_product, name='search_stores'),
     path('store/' ,include('api.store.urls'), name='store'),
-    path('api-auth/', include('rest_framework.urls')),
-    
-    # path('product_details/' ,include('api.store.urls'), name='store'),
+    path('cart/' ,include('api.carts.urls'), name='cart'),
+    path('api-auth/', include('rest_framework.urls')),  
     path('api/' ,include('api.urls'), name='api'),
+    path('ajax_calls/search/', views.autocomplete, name='autocomplete'),
+    path('ajax_calls/update_cart/', views.update_cart, name='update_cart'),
+    path('ajax_calls/cart_deatils/', views.cart_details, name='cart_details'),
+    
+
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
+# if settings.DEBUG:
+#     urlpatterns=[
+#         path('__debug__/', include('debug_toolbar.urls')),
+#     ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

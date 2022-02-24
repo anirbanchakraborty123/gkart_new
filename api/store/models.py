@@ -34,3 +34,9 @@ class Product(models.Model):
     # It returns the links/url of the product_details page for a particular product
     def get_url(self):
         return reverse('product_details', args=[self.category.category_slug,self.slug])
+
+    # For adding particular item to cart by passing product_id
+    def cart_get_url(self):
+        return reverse('add_to_cart', args=[self.id])
+
+    

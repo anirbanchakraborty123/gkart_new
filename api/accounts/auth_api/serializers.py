@@ -1,4 +1,3 @@
-from unicodedata import numeric
 from rest_framework import serializers
 from ..models import Account
 
@@ -25,7 +24,7 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
         print(user)
         if user=='POST':
                 if data['is_admin'] is False:
-                    raise serializers.ValidationError({'error':'is_admin should be true'})
+                    raise serializers.ValidationError({'error':'Only ADMIN has acces to post'})
                     return data
 
         return data
