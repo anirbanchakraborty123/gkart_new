@@ -28,7 +28,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = config('SECRET_KEY', 'u4ez)-^+gimz=5r32p9gn-r0jm#n0tqy_$t*08jbm(tu-f(u^b') 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',default=False, cast=bool) 
+#DEBUG = config('DEBUG',default=False, cast=bool) 
+DEBUG = True
 
 ALLOWED_HOSTS = ['gkartenv.eba-fd5jmdgf.us-west-2.elasticbeanstalk.com','127.0.0.1']
 
