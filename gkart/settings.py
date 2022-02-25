@@ -124,11 +124,11 @@ if 'RDS_DB_NAME' in os.environ:
     
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ('RDS_DB_NAME'),                     
-            'USER': os.environ('RDS_DB_USER') ,
-            'PASSWORD': os.environ('RDS_DB_PASSWORD') ,
-            'HOST': os.environ('RDS_DB_HOST') ,
-            'PORT': os.environ('RDS_DB_PORT') ,
+            'NAME': os.environ['RDS_DB_NAME'],                     
+            'USER': os.environ['RDS_USER'] ,
+            'PASSWORD': os.environ['RDS_PASSWORD'] ,
+            'HOST': os.environ['RDS_HOST'] ,
+            'PORT': os.environ['RDS_PORT'] ,
         }
     }
 else:
