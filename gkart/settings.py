@@ -15,7 +15,7 @@ from pathlib import Path
 
 from decouple import config # For python-decouple env file
 
-
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -119,22 +119,27 @@ AUTH_USER_MODEL= 'accounts.Account' # ADDED TO LET KNOW THAT WE WILL USE THIS
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': config('DB_NAME'),                     
-    #     'USER': config('DB_USER') ,
-    #     'PASSWORD': config('DB_PASSWORD') ,
-    #     'HOST': config('DB_HOST') ,
-    #     'PORT': config('DB_PORT') ,
-    # }
-
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR/'db.sqlite3',                     
-        
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+    
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ('RDS_DB_NAME'),                     
+            'USER': os.environ('RDS_DB_USER') ,
+            'PASSWORD': os.environ('RDS_DB_PASSWORD') ,
+            'HOST': os.environ('RDS_DB_HOST') ,
+            'PORT': os.environ('RDS_DB_PORT') ,
+        }
     }
-}
+else:
+     DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR/'db.sqlite3',                     
+            
+        }
+    }
+
 
 
 
@@ -180,34 +185,10 @@ STATICFILES_DIRS=[
     'gkart/static'
 ]
 
-MEDIA_URL = '/media/'
-# 
-import os
-MEDIA_ROOT = (
-    os.path.join(BASE_DIR, 'media')
-)
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
 
-# DEBUG_TOOLBAR_PANELS = [
-#     'ddt_request_history.panels.request_history.RequestHistoryPanel',  # Here it is 
-#     'debug_toolbar.panels.versions.VersionsPanel',
-#     'debug_toolbar.panels.timer.TimerPanel',
-#     'debug_toolbar.panels.settings.SettingsPanel',
-#     'debug_toolbar.panels.headers.HeadersPanel',
-#     'debug_toolbar.panels.request.RequestPanel',
-#     'debug_toolbar.panels.sql.SQLPanel',
-#     'debug_toolbar.panels.templates.TemplatesPanel',
-#     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-#     'debug_toolbar.panels.cache.CachePanel',
-#     'debug_toolbar.panels.signals.SignalsPanel',
-#     'debug_toolbar.panels.logging.LoggingPanel',
-#     'debug_toolbar.panels.redirects.RedirectsPanel',
-#     'debug_toolbar.panels.profiling.ProfilingPanel',
-# ]
-# INTERNAL_IPS = [
-#     # ...
-#     "127.0.0.1",
-#     # ...
-# ]
+
 CACHE_TTL = 60 * 15
 
 CACHES = {
