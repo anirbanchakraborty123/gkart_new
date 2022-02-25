@@ -202,3 +202,9 @@ CACHES = {
         "KEY_PREFIX" : "example"
     }
 }
+
+#To create custom superuser in aws beanstalk:
+
+# 03_createsuperuser: 
+#         command: "source /var/app/venv/*/bin/activate && echo \"from api.accounts.models import Account; Account.objects.create_superuser('admin','admin','admin','admin@gmail.com','username')\" | python3 manage.py shell" 
+#         leader_only: true
