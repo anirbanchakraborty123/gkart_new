@@ -123,7 +123,7 @@ if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
     
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE':'django.db.backends.postgresql',
             'NAME': os.environ['RDS_DB_NAME'],                     
             'USER': os.environ['RDS_USER'] ,
             'PASSWORD': os.environ['RDS_PASSWORD'] ,
