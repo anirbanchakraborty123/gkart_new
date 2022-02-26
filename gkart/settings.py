@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY', 'u4ez)-^+gimz=5r32p9gn-r0jm#n0tqy_$t*08jbm(tu-
 #DEBUG = config('DEBUG',default=False, cast=bool) 
 DEBUG = True
 
-ALLOWED_HOSTS = ['gkartenvtest.eba-fd5jmdgf.us-west-2.elasticbeanstalk.com','127.0.0.1']
+ALLOWED_HOSTS = ['gkartenvtest1.eba-fd5jmdgf.us-west-2.elasticbeanstalk.com','127.0.0.1']
 
 
 
