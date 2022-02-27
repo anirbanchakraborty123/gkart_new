@@ -1,3 +1,6 @@
+from distutils.command.upload import upload
+from tkinter import CASCADE
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
 from api.category.models import Category
@@ -39,4 +42,13 @@ class Product(models.Model):
     def cart_get_url(self):
         return reverse('add_to_cart', args=[self.id])
 
-    
+class ProductGallery(models.Model):
+    product = models.ForeignKey(Product , default=None, on_delete=models.CASCADE)
+    image   = models.ImageField(upload_to='store/products', max_length=255)
+
+    def __str__(self):
+        return self.product.product_name
+
+    class Meta:
+        verbose_name ='product_gallery'
+        verbose_name_plural ="Product__Gallery"

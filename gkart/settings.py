@@ -15,7 +15,7 @@ from pathlib import Path
 
 from decouple import config # For python-decouple env file
 
-
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -28,9 +28,10 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = config('SECRET_KEY', 'u4ez)-^+gimz=5r32p9gn-r0jm#n0tqy_$t*08jbm(tu-f(u^b') 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = config('DEBUG',default=True, cast=bool) 
 
-ALLOWED_HOSTS = ['gkart-env.eba-fd5jmdgf.us-west-2.elasticbeanstalk.com','127.0.0.1']
+ALLOWED_HOSTS = ['gkartenvtest1.eba-fd5jmdgf.us-west-2.elasticbeanstalk.com','127.0.0.1','*']
 
 
 
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'api.accounts.auth_api',
     'api',
     'api.carts',
+    'storages',
 
 
 ]
@@ -119,22 +121,38 @@ AUTH_USER_MODEL= 'accounts.Account' # ADDED TO LET KNOW THAT WE WILL USE THIS
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': config('DB_NAME'),                     
-    #     'USER': config('DB_USER') ,
-    #     'PASSWORD': config('DB_PASSWORD') ,
-    #     'HOST': config('DB_HOST') ,
-    #     'PORT': config('DB_PORT') ,
-    # }
-
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR/'db.sqlite3',                     
-        
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+    
+        'default': {
+            'ENGINE':'django.db.backends.postgresql',
+            'NAME': os.environ['RDS_DB_NAME'],                     
+            'USER': os.environ['RDS_USERNAME'] ,
+            'PASSWORD': os.environ['RDS_PASSWORD'] ,
+            'HOST': os.environ['RDS_HOSTNAME'] ,
+            'PORT': os.environ['RDS_PORT'] ,
+        }
     }
-}
+else:
+    #  DATABASES = {
+    
+    #     'default': {
+    #         'ENGINE':'django.db.backends.postgresql',
+    #         'NAME': 'ebdb',                     
+    #         'USER': 'gkart',
+    #         'PASSWORD': 'anirban714' ,
+    #         'HOST': 'aa151hpt5r02t0o.clevnrfpwnbl.us-west-2.rds.amazonaws.com' ,
+    #         'PORT': '5432' ,
+    #     }
+    # }
+     DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR/'db.sqlite3',                     
+            
+        }
+    }
+
 
 
 
@@ -180,34 +198,27 @@ STATICFILES_DIRS=[
     'gkart/static'
 ]
 
-MEDIA_URL = '/media/'
-# 
-import os
-MEDIA_ROOT = (
-    os.path.join(BASE_DIR, 'media')
-)
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = BASE_DIR/'media'
 
-# DEBUG_TOOLBAR_PANELS = [
-#     'ddt_request_history.panels.request_history.RequestHistoryPanel',  # Here it is 
-#     'debug_toolbar.panels.versions.VersionsPanel',
-#     'debug_toolbar.panels.timer.TimerPanel',
-#     'debug_toolbar.panels.settings.SettingsPanel',
-#     'debug_toolbar.panels.headers.HeadersPanel',
-#     'debug_toolbar.panels.request.RequestPanel',
-#     'debug_toolbar.panels.sql.SQLPanel',
-#     'debug_toolbar.panels.templates.TemplatesPanel',
-#     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-#     'debug_toolbar.panels.cache.CachePanel',
-#     'debug_toolbar.panels.signals.SignalsPanel',
-#     'debug_toolbar.panels.logging.LoggingPanel',
-#     'debug_toolbar.panels.redirects.RedirectsPanel',
-#     'debug_toolbar.panels.profiling.ProfilingPanel',
-# ]
-# INTERNAL_IPS = [
-#     # ...
-#     "127.0.0.1",
-#     # ...
-# ]
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_S3_OBJECT_PARAMETERS={
+#     'CacheControl':'max-age-86400'
+# }
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL ='public-read'
+# AWS_LOCATION ='static'
+# STATICFILES_DIRS=[
+#     'gkart/static',
+#  ]
+# STATIC_URL ='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN,AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+
 CACHE_TTL = 60 * 15
 
 CACHES = {
@@ -220,3 +231,16 @@ CACHES = {
         "KEY_PREFIX" : "example"
     }
 }
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    50: 'critical',
+}
+
+
+#To create custom superuser in aws beanstalk:
+
+# 03_createsuperuser: 
+#         command: "source /var/app/venv/*/bin/activate && echo \"from api.accounts.models import Account; Account.objects.create_superuser('admin','admin','admin','admin@gmail.com','username')\" | python3 manage.py shell" 
+#         leader_only: true
