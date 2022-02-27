@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'api.accounts.auth_api',
     'api',
     'api.carts',
+    'storages',
 
 
 ]
@@ -133,6 +134,17 @@ if 'RDS_DB_NAME' in os.environ:
         }
     }
 else:
+    #  DATABASES = {
+    
+    #     'default': {
+    #         'ENGINE':'django.db.backends.postgresql',
+    #         'NAME': 'ebdb',                     
+    #         'USER': 'gkart',
+    #         'PASSWORD': 'anirban714' ,
+    #         'HOST': 'aa151hpt5r02t0o.clevnrfpwnbl.us-west-2.rds.amazonaws.com' ,
+    #         'PORT': '5432' ,
+    #     }
+    # }
      DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -189,6 +201,23 @@ STATICFILES_DIRS=[
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_S3_OBJECT_PARAMETERS={
+#     'CacheControl':'max-age-86400'
+# }
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL ='public-read'
+# AWS_LOCATION ='static'
+# STATICFILES_DIRS=[
+#     'gkart/static',
+#  ]
+# STATIC_URL ='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN,AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
 
 CACHE_TTL = 60 * 15
 
@@ -202,6 +231,13 @@ CACHES = {
         "KEY_PREFIX" : "example"
     }
 }
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    50: 'critical',
+}
+
 
 #To create custom superuser in aws beanstalk:
 

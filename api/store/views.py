@@ -5,8 +5,10 @@ from api.category.models import Category
 from api.carts.models import CartItems
 from api.carts.views import _cart_id 
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='login')
 def store(request, category_slug= None):
 
       categories = None
@@ -46,8 +48,11 @@ def store(request, category_slug= None):
                'cart_pr' : cart_pr
                
                            }
+      current_user = request.user
+      print(current_user.id)
       return render(request, 'store/store.html', context)
 
+@login_required(login_url='login')
 def product_details(request, category_slug, product_slug):
       try:
             single_product= Product.objects.get(category__category_slug = category_slug, slug=product_slug)

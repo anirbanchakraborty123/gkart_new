@@ -1,7 +1,11 @@
 from django.shortcuts import redirect, render
+from django.contrib import messages,auth
 from django.http import HttpResponse, request
 from .forms import RegistrationForm
 from .models import Account
+import time
+from django.views.decorators.cache import cache_control
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def Register(request):
@@ -19,7 +23,8 @@ def Register(request):
             user.is_active= True
             user.save()
             if user:
-                return redirect('login')
+                messages.success(request,"Registration Successful")
+                return redirect('register')
         
     else:
         form= RegistrationForm()
@@ -30,7 +35,27 @@ def Register(request):
     return render(request, 'accounts/register.html',context)
 
 def Login(request):
+    if request.method=='POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user= auth.authenticate(email=email,password=password)
+        if user is not None:
+            rs=request.session["uid"]=user.id
+            auth.login(request,user)
+            # print(user.first_name)
+            return redirect('home')
+        else:
+            messages.error(request,"Wrong Credantials")
+            return redirect('login')
+
+        
     return render(request, 'accounts/login.html')
 
+@login_required(login_url='login')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def Logout(request):
-    pass
+    # pass
+    auth.logout(request)
+    messages.success(request,"Logged Out Successfully ")
+    return redirect('login')
